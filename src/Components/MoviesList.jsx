@@ -8,8 +8,10 @@ function MovieList(props) {
         props.nominationsData(movie);
     }
   return (
-    <div className={props.listType === "movies" ? 'search-movies': 'nomination-movies'}>
-        {
+    <div className="search-movies"> 
+        <h3 className="internal-header col">Results</h3>
+        <div className='search-movies-list'>
+        {   
             props.movies.Response === 'False' ?  <p>{props.movies.Error}</p> :  
             props.movies.Search.map((movie, index) => (
                 <div className="movie_card" key={movie.imdbID}>
@@ -30,9 +32,12 @@ function MovieList(props) {
                 
             ))
         }
+        </div>
+    </div>
         
-    </div>    
+
   );
+  
 };
 
 export default MovieList;

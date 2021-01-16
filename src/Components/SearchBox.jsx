@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import  searchIcon from "../assets/searchIcon.png"
 // import axios from 'axios'
 
 
@@ -31,9 +32,10 @@ function SearchBox(props) {
         placeholder="Search" 
         className="search-input" />
             <div className="search-icon">
-                <span className="glyphicon glyphicon-search"></span>
+                {/* <span className="glyphicon glyphicon-search"></span> */}
+                {/* <searchIcon /> */}
+                <img src={searchIcon} alt='search' />
             </div>
-
     </div>
   );
 }

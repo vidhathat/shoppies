@@ -11,19 +11,30 @@ export default function App() {
   const [movie, setMovies] = useState();
   const [searchResults, setSearchResults] = useState();
   const [nominationsList, setNominationsList] = useState([]);
+  
+  useEffect(() => {
+		const movieFavourites = JSON.parse(
+			localStorage.getItem('movie-nominations')
+		);
 
-  // const addNomination = (movie) =>{
-  //   const newNomination =[...nominations, movie];
-  //   setNominate(newNomination);
+		if (movieFavourites) {
+			setNominationsList(movieFavourites);
+		}
+	}, []);
 
-  // }
+
+
   
   const ongetSearchData = (data) => {
     setSearchResults(data);
   }
   const setNominatedMovie = (movie) => {
-    // setNominationsList([...nominationsList, movie]);
-    setNominationsList(prevState => [...prevState, movie]);
+    const newNominationList = [...nominationsList, movie];
+    setNominationsList(newNominationList);
+    saveToLocalStorage(newNominationList);
+
+    // setNominationsList(prevState => [...prevState, movie]);
+    
   }
   const removeNomination = (movie) => {
     let tempArr = [...nominationsList];
@@ -31,64 +42,52 @@ export default function App() {
     if( index !== -1) {
       tempArr.splice(index, 1)
     }
-    // tempArr = index >= 0 ? tempArr.splice(index, 1) : tempArr;
-    console.log(tempArr, 'changedarr', movie, index)
+   
     // setNominationsList(changedArr);
-    setNominationsList(prevState => [...tempArr]);
+    const newNominationList =  [...tempArr]
+    setNominationsList(newNominationList);
+    saveToLocalStorage(newNominationList);
+
+    // setNominationsList(prevState => [...tempArr]);
+  }
+
+  const saveToLocalStorage = (items) =>{
+    localStorage.setItem('movie-nominations', JSON.stringify(items));
   }
   return (
     <div className="shoppies-app">
       <div className="header">
         <div className="d-flex align-center justify-content-between">
-          <Heading heading="Shoppies" />
-          <SearchBox results={ (searchData) => ongetSearchData(searchData) } />
+          <Heading />
+          <SearchBox results={ (searchData) => ongetSearchData(searchData)
+           } />
         </div>
       </div>
-       <div className="movies-list"> 
-        {searchResults ?  
-          <MovieList 
-            movies={searchResults}
-            nominatedMoviesList = {nominationsList}
-            nominationsData={ (selectedMovie) => setNominatedMovie(selectedMovie) }
-            listType="movies"
-          /> 
-          : <p>Please search for movies</p>
-        }
-        {/* {nominationsList.length > 0 ?  
-          <Nominate 
-            nominateMovies={nominationsList} 
-            nominationsData={removeNomination}  
-            listType='nominations'
+      <div className="shoppies-data">
+      <div id="overlay"></div>
+        <div className="movies-list"> 
+          {searchResults ?  
+            <MovieList 
+              movies={searchResults}
+              nominatedMoviesList = {nominationsList}
+              nominationsData={ (selectedMovie) => setNominatedMovie(selectedMovie) }
+              listType="movies"
             /> 
-            : ''
-        } */}
-
-        {nominationsList.length > 0 ?  
-          <Nominate 
-            nominateMovies={nominationsList} 
-            nominationsData={(selectedMovie) => removeNomination(selectedMovie)}  
-            listType='nominations'
-            /> 
-            : ''
-        }
+            : <p className="search-movies search-msg">Please search for movies</p>
+          }
+          <div className="verticalLine"></div>
+          
+          {nominationsList.length > 0 ?  
+            <Nominate 
+              nominateMovies={nominationsList} 
+              nominationsData={(selectedMovie) => removeNomination(selectedMovie)}  
+              listType='nominations'
+              /> 
+              : ''
+          }
+        </div>
       </div>
-
-      {/* {nominationsList.length > 0 ?  
-      <MovieList 
-        nominations={nominationsList} 
-        nominationsData={setNominationsList(list => [...nominationsList, list])}  
-        listType='nominations'
-        /> 
-        : ''
-      } */}
-      {/* </div> */}
-      {/* <div className="row">
-      {nominationsList.length > 0 ?  <Nominate movies={searchResults} handleNominateClick={addNomination} nominate={Nominate}/> : <p>Please search for movies</p>}
-      </div> */}
-      {/* <div className="row d-flex align-items-center mt-4 mb-4">
-      <Heading heading="Nominations" />
-      </div> */}
-    
+       
     </div>
   );
 }
