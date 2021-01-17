@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import  searchIcon from "../assets/searchIcon.png"
-// import axios from 'axios'
 
 
 function SearchBox(props) {
@@ -21,19 +20,12 @@ function SearchBox(props) {
     }
   return (
     <div className="search-box">
-        {/* <input
-         placeholder="Enter the Movie name here.."
-         ref={input => setSearchInput(input)}
-         onChange={() => handleInputChange()}
-       /> */}
        <input type="text" 
         ref={input => setSearchInput(input)}
         onChange={() => handleInputChange()} 
         placeholder="Search" 
         className="search-input" />
             <div className="search-icon">
-                {/* <span className="glyphicon glyphicon-search"></span> */}
-                {/* <searchIcon /> */}
                 <img src={searchIcon} alt='search' />
             </div>
     </div>

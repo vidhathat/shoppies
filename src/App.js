@@ -6,6 +6,7 @@ import Heading from "./Components/Heading";
 
 import SearchBox from "./Components/SearchBox";
 import Nominate from "./Components/Nominate";
+import Background from "./assets/backgr.png";
 
 export default function App() {
   const [movie, setMovies] = useState();
@@ -33,7 +34,6 @@ export default function App() {
     setNominationsList(newNominationList);
     saveToLocalStorage(newNominationList);
 
-    // setNominationsList(prevState => [...prevState, movie]);
     
   }
   const removeNomination = (movie) => {
@@ -43,12 +43,10 @@ export default function App() {
       tempArr.splice(index, 1)
     }
    
-    // setNominationsList(changedArr);
     const newNominationList =  [...tempArr]
     setNominationsList(newNominationList);
     saveToLocalStorage(newNominationList);
 
-    // setNominationsList(prevState => [...tempArr]);
   }
 
   const saveToLocalStorage = (items) =>{
@@ -73,7 +71,7 @@ export default function App() {
               nominationsData={ (selectedMovie) => setNominatedMovie(selectedMovie) }
               listType="movies"
             /> 
-            : <p className="search-movies search-msg">Please search for movies</p>
+             :      <img className='background' src={Background} alt='Nominate Your Favourite Movies' />
           }
           <div className="verticalLine"></div>
           

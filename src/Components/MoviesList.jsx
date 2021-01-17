@@ -2,7 +2,6 @@ import React from "react";
 import Nominate from "./Nominate";
 
 function MovieList(props) {
-    // const nominate = props.nominate;
     const addToNominate = (movie) => {
         console.log(movie, '====');
         props.nominationsData(movie);
