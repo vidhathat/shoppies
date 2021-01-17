@@ -9,7 +9,6 @@ import Nominate from "./Components/Nominate";
 import Background from "./assets/backgr.png";
 
 export default function App() {
-  const [movie, setMovies] = useState();
   const [searchResults, setSearchResults] = useState();
   const [nominationsList, setNominationsList] = useState([]);
   

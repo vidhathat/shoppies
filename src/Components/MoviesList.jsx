@@ -1,5 +1,4 @@
 import React from "react";
-import Nominate from "./Nominate";
 
 function MovieList(props) {
     const addToNominate = (movie) => {
